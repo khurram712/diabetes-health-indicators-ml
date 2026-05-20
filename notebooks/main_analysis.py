@@ -82,10 +82,30 @@ df = remove_duplicates(df)
 # 2b. Handle missing values (median imputation for numerics)
 df = handle_missing_values(df, strategy="median")
 
+
+if "ethnicity" in df.columns:
+    df, le_stage = label_encode_column(df, "ethnicity")
+
+if "education_level" in df.columns:
+    df, le_stage = label_encode_column(df, "education_level")
+
+if "income_level" in df.columns:
+    df, le_stage = label_encode_column(df, "income_level")
+
+if "employment_status" in df.columns:
+    df, le_stage = label_encode_column(df, "employment_status")
+
+if "smoking_status" in df.columns:
+    df, le_stage = label_encode_column(df, "smoking_status")
+
 # 2c. Encode the multiclass target (diabetes_stage) with LabelEncoder
 #     so it becomes integers 0, 1, 2, …
 if "diabetes_stage" in df.columns:
     df, le_stage = label_encode_column(df, "diabetes_stage")
+
+if "gender" in df.columns:
+    df, le_stage = label_encode_column(df, "gender")
+
 
 # 2d. Encode the binary target if it is not already numeric
 if "diagnosed_diabetes" in df.columns and df["diagnosed_diabetes"].dtype == object:
@@ -279,7 +299,7 @@ if "multiclass" in splits:
 
     multiclass_models = {
         "Logistic Regression": LogisticRegression(
-            max_iter=1000, multi_class="auto", random_state=RANDOM_STATE),
+            max_iter=1000, solver='lbfgs', random_state=RANDOM_STATE),
         "Decision Tree":       DecisionTreeClassifier(
             max_depth=6, random_state=RANDOM_STATE),
         "KNN":                 KNeighborsClassifier(n_neighbors=5),
@@ -295,7 +315,7 @@ if "multiclass" in splits:
 
         metrics = evaluate_multiclass(y_te_m, y_pred, model_name=name)
         baseline_results["multiclass"][name] = metrics
-        plot_confusion_matrix_multi(y_te_m, y_pred, model_name=name)
+        plot_confusion_matrix_multi(y_te_m, y_pred, model_name=name , labels=y_te_m.unique())
 
     compare_models(baseline_results["multiclass"], metric="macro_f1",
                    title="Baseline Multiclass — Macro F1 Comparison")
@@ -427,7 +447,7 @@ if "multiclass" in splits:
 
     # Tune LR for multiclass too
     lr_mc_gs = GridSearchCV(
-        LogisticRegression(max_iter=1000, multi_class="auto",
+        LogisticRegression(max_iter=1000, solver='lbfgs',
                            random_state=RANDOM_STATE),
         {"C": [0.01, 0.1, 1, 10]},
         cv=5, scoring="f1_macro", n_jobs=-1
