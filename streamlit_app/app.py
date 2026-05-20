@@ -138,7 +138,7 @@ def tab_binary(features: dict, feature_cols) -> None:
    # scaler = load_artifact("binary_scaler.joblib")
 
     model  = load_artifact("binary_log_reg_model.joblib")
-    scaler = load_artifact("binary__log_reg_model.joblib")
+    #scaler = load_artifact("binary__log_reg_model.joblib")
 
 
     if model is None:
