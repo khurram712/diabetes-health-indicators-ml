@@ -35,6 +35,7 @@ MODELS_DIR = os.path.join(BASE_DIR, "models")
 @st.cache_resource(show_spinner=False)
 def load_artifact(filename: str):
     path = os.path.join(MODELS_DIR, filename)
+    print(path)
     if os.path.exists(path):
         return joblib.load(path)
     return None
@@ -44,7 +45,7 @@ def load_artifact(filename: str):
 # Sidebar — Feature Inputs
 # ══════════════════════════════════════════════════════════════════════════
 
-def render_sidebar() -> dict:
+def render_sidebar() -> dict: 
     """Render all feature sliders/selects in the sidebar and return values."""
     st.sidebar.header("🔧 Patient Feature Inputs")
     st.sidebar.markdown("Adjust the sliders to match the patient's profile.")
