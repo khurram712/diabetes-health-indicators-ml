@@ -54,7 +54,7 @@ RANDOM_STATE = 42
 np.random.seed(RANDOM_STATE)
 
 # Paths
-DATA_RAW       = os.path.join(PROJECT_ROOT, "data", "raw",       "diabetes_indicators.csv")
+DATA_RAW       = os.path.join(PROJECT_ROOT, "data", "raw",       "diabetes_dataset.csv")
 DATA_PROCESSED = os.path.join(PROJECT_ROOT, "data", "processed", "diabetes_clean.csv")
 MODELS_DIR     = os.path.join(PROJECT_ROOT, "models")
 os.makedirs(MODELS_DIR, exist_ok=True)
