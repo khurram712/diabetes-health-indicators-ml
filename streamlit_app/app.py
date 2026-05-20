@@ -135,6 +135,7 @@ def tab_binary(features: dict, feature_cols) -> None:
     )
 
     model  = load_artifact("binary_model.joblib")
+    
     scaler = load_artifact("binary_scaler.joblib")
 
     if model is None:
