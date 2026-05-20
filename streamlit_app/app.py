@@ -134,9 +134,8 @@ def tab_binary(features: dict, feature_cols) -> None:
         "or **not (No)** based on their health indicators."
     )
 
-    model  = load_artifact("binary_model.joblib")
-    
-    scaler = load_artifact("binary_scaler.joblib")
+    model  = load_artifact("binary_log_reg_model.joblib")
+    scaler = load_artifact("binary_log_reg_model.joblib")
 
     if model is None:
         st.warning("⚠️ Binary model not found. Please run the notebook to train and export models first.")
